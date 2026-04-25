@@ -17,6 +17,18 @@ jobs:
       - name: Install aria2
         run: sudo apt-get install -y aria2
 
+      - name: create test file
+        run: |
+          mkdir -p downloads/
+          echo "Hello World!" > downloads/testfile.txt
+
+      - name: Upload the files to google drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.4
+        with:
+          target: "downloads/*"
+          credentials: ${{ secrets.GDRIVE_SECRET }}
+          parent_folder_id: ${{ secrets.GDRIVE_PARENT_FOLDER_ID }}
+          
       - name: Extract URLs and download files
         run: |
           MSG=$(git log -1 --pretty=%B)
