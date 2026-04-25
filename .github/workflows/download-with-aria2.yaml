@@ -23,7 +23,7 @@ jobs:
           echo "Hello World!" > downloads/testfile.txt
           
       - name: Upload Github-Actions Artifacts TO Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.4
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
         with:
           target: "downloads/*"
           credentials: ${{ secrets.GDRIVE_SECRET }}
