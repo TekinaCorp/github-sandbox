@@ -21,8 +21,8 @@ jobs:
         run: |
           mkdir -p downloads/
           echo "Hello World!" > downloads/testfile.txt
-
-      - name: Upload the files to google drive
+          
+      - name: Upload Github-Actions Artifacts TO Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.4
         with:
           target: "downloads/*"
