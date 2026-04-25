@@ -41,7 +41,7 @@ jobs:
             echo "⬇️ Downloading $URL -> $FILENAME"
 
             aria2c \
-              --split=2 \
+              --split=4 \
               --max-connection-per-server=4 \
               --min-split-size=90M \
               --dir="tmp_downloads" \
