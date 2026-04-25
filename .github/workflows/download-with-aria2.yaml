@@ -73,6 +73,12 @@ jobs:
 
           rm -rf tmp_downloads
 
+      - name: Upload the folder containing split archive parts as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: split-archive-parts
+          path: downloads/
+          
       - name: Commit & Push
         run: |
           BRANCH="${GITHUB_REF_NAME}"
