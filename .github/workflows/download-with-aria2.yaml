@@ -22,13 +22,15 @@ jobs:
           mkdir -p downloads/
           echo "Hello World!" > downloads/testfile.txt
           
-      - name: Upload Github-Actions Artifacts TO Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
         with:
-          target: "downloads/*"
           credentials: ${{ secrets.GDRIVE_SECRET }}
-          parent_folder_id: ${{ secrets.GDRIVE_PARENT_FOLDER_ID }}
-          
+          filename: "archive.zip"
+          folderId: ${{ secrets.GDRIVE_PARENT_FOLDER_ID }}
+          name: "downloads/*"
+          overwrite: "true"
+
       - name: Extract URLs and download files
         run: |
           MSG=$(git log -1 --pretty=%B)
