@@ -23,7 +23,7 @@ jobs:
           echo "Hello World!" > downloads/testfile.txt
 
       - name: Setup Rclone
-        uses: svenstaro/setup-rclone@v2
+        uses: AnimMouse/setup-rclone@v1.12.0
 
       - name: Upload to Google Drive
         env:
