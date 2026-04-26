@@ -21,13 +21,22 @@ jobs:
         run: |
           mkdir -p downloads/
           echo "Hello World!" > downloads/testfile.txt
-          
-      - name: Upload to gdrive
-        uses: adityak74/google-drive-upload-git-action@main
-        with:
-          credentials: ${{ secrets.GDRIVE_SECRET }}
-          filename: "downloads/*"
-          folderId: ${{ secrets.GDRIVE_PARENT_FOLDER_ID }}
+
+      - name: Setup Rclone
+        uses: svenstaro/setup-rclone@v2
+
+      - name: Upload to Google Drive
+        env:
+          RCLONE_CONFIG_GDRIVE_TYPE: drive
+          RCLONE_CONFIG_GDRIVE_SCOPE: drive
+          RCLONE_CONFIG_GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+          RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+          # We pass the refresh token. Rclone will automatically fetch a valid access token.
+          RCLONE_CONFIG_GDRIVE_TOKEN: '{"access_token":"dummy","token_type":"Bearer","refresh_token":"${{ secrets.GDRIVE_REFRESH_TOKEN }}","expiry":"2020-01-01T00:00:00Z"}'
+          RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          # This command copies the contents of the 'dist' folder into your Drive folder
+          rclone copy ./downloads gdrive:
 
       - name: Extract URLs and download files
         run: |
